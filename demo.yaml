@@ -1,15 +1,22 @@
 apiVersion: kubedb.com/v1alpha1
 kind: MySQL
 metadata:
-  name: mysql-quickstart
+  name: wp-mysql-002
   namespace: k8a
 spec:
-  version: "8.0-v2"
+  version: "8.0.14"
   storageType: Durable
   storage:
+    storageClassName: "nfs-client"
     accessModes:
     - ReadWriteOnce
     resources:
       requests:
-        storage: 1Gi
-  terminationPolicy: DoNotTerminate
+        storage: 20Gi
+  monitor:
+    agent: prometheus.io/builtin
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "100m"
+  terminationPolicy: WipeOut
