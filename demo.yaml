@@ -1,0 +1,15 @@
+apiVersion: kubedb.com/v1alpha1
+kind: MySQL
+metadata:
+  name: mysql-quickstart
+  namespace: k8a
+spec:
+  version: "8.0-v2"
+  storageType: Durable
+  storage:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 1Gi
+  terminationPolicy: DoNotTerminate
