@@ -1,7 +1,8 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: wordpress
+  name: wordpress-005
+  namespace: k8a
   labels:
     app: wordpress
 spec:
@@ -15,7 +16,8 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: wp-pv-claim
+  name: wp-pv-claim-005
+  namespace: k8a
   labels:
     app: wordpress
 spec:
@@ -28,7 +30,8 @@ spec:
 apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
 kind: Deployment
 metadata:
-  name: wordpress
+  name: wordpress-005
+  namespace: k8a
   labels:
     app: wordpress
 spec:
@@ -49,11 +52,11 @@ spec:
         name: wordpress
         env:
         - name: WORDPRESS_DB_HOST
-          value: wp-mysql-002
+          value: wp-mysql-005
         - name: WORDPRESS_DB_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: mysql-pass
+              name: wp-mysql-005-auth
               key: password
         ports:
         - containerPort: 80
@@ -64,4 +67,4 @@ spec:
       volumes:
       - name: wordpress-persistent-storage
         persistentVolumeClaim:
-          claimName: wp-pv-claim
+          claimName: wp-pv-claim-005

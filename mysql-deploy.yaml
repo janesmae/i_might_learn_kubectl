@@ -1,15 +1,19 @@
 apiVersion: kubedb.com/v1alpha1
 kind: MySQL
 metadata:
-  name: wp-mysql-002
+  name: wp-mysql-005
   namespace: k8a
 spec:
-  version: "8.0.14"
+  version: "5.7.25"
+  #  version: "8.0.14"
+  #configSource:
+  #  configMap:
+  #    name: mysql-config-005
   storageType: Durable
   storage:
     storageClassName: "nfs-client"
     accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
     resources:
       requests:
         storage: 20Gi
